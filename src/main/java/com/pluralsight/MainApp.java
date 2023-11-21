@@ -35,7 +35,7 @@ public class MainApp {
                     addShape();
                     break;
                 case 2:
-                    System.out.println("Enter file name for image: ");
+                    System.out.println("Enter file name for image (<File Name>.png): ");
                     String fileName = scan.next();
                     saveImage(world, fileName);
                     break;
@@ -72,6 +72,7 @@ public class MainApp {
         System.out.println("Enter border width:");
         double borderWidth = inputDouble();
         Color color = colorInput();
+
         switch (shapeInput) {
             case 1:
                 System.out.println("Enter side length of the Square: ");
@@ -100,11 +101,9 @@ public class MainApp {
                 hexagon.paint(world);
                 break;
         }
-
     }
 
     private void saveImage(World world, String fileName) {
-
         String directory = "src/main/resources";
         String filePath = directory + "/" + fileName;
         this.world.saveAs(filePath);
