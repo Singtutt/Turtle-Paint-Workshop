@@ -1,5 +1,4 @@
 package com.pluralsight;
-import com.pluralsight.forms.Turtle;
 import com.pluralsight.forms.World;
 import java.awt.*;
 import java.util.InputMismatchException;
@@ -36,10 +35,13 @@ public class MainApp {
                     addShape();
                     break;
                 case 2:
-                    saveImage();
+                    System.out.println("Enter file name for image: ");
+                    String fileName = scan.next();
+                    saveImage(world, fileName);
                     break;
                 case 3:
                     process = false;
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid Option... Please enter a valid option.");
@@ -101,9 +103,8 @@ public class MainApp {
 
     }
 
-    private void saveImage() {
-        System.out.println("Enter file name for image: ");
-        String fileName = scan.next();
+    private void saveImage(World world, String fileName) {
+
         String directory = "src/main/resources";
         String filePath = directory + "/" + fileName;
         this.world.saveAs(filePath);

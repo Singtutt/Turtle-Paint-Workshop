@@ -18,15 +18,15 @@ public class Circle extends Shape {
         Turtle turtle = new Turtle(this.x, this.y, world);
         turtle.setPenWidth(this.borderWidth);
         turtle.setColor(this.color);
-        int sides = 360;
-        double angle = 360.0 / sides;
-        double distance = 2 * Math.PI * radius / sides;
         turtle.penUp();
-        turtle.goTo(this.x - radius, this.y);
+        turtle.goTo(this.x + this.radius, this.y);
         turtle.penDown();
+        turtle.setDelay(0);
+        int sides = 360;
+        int angle = 360 / sides;
 
         for (int i = 0; i < sides; i++) {
-            turtle.forward(distance);
+            turtle.forward(this.radius * 2 * Math.PI / sides);
             turtle.turnRight(angle);
         }
     }
