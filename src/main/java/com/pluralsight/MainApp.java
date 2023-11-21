@@ -1,82 +1,89 @@
 package com.pluralsight;
-
 import com.pluralsight.forms.Turtle;
 import com.pluralsight.forms.World;
-
 import java.awt.*;
+import java.util.Scanner;
 
-public class MainApp
-{
-    public static void main(String[] args)
-    {
-        // This starter code to get you familiar with how
-        // the TurtleLogo application works
-
-        // The world is your canvas
-        World world = new World(600, 600);
-        Turtle turtle = new Turtle(world,-100, -100);
-        
-        int width = 200;
-        int height = 200;
-
-        square(turtle);
-        circle(turtle);
-        pizza(turtle);
+public class MainApp {
+    private int canvasSize;
+    private Scanner scan;
+    public MainApp() {
+        scan = new Scanner(System.in);
     }
-    private static void square(Turtle turtle) {
-        turtle.penDown();
-        turtle.setColor(Color.BLACK);
 
-        for (int i = 0; i < 4; i++) {
-            turtle.forward(100);
-            turtle.turnRight(90);
-        }
-    }
-    private static void circle(Turtle turtle) {
-        turtle.setDelay(0.0001);
-        turtle.penUp();
-        turtle.goTo(100,0);
-        turtle.penDown();
-        turtle.setColor(Color.BLUE);
+    public void start() {
+        canvasSize = inputSize();
 
-        for (int i = 0; i < 360; i++) {
-            turtle.forward(1);
-            turtle.turnRight(1);
+        boolean exit = false;
+        while(!exit) {
+            mainMenu();
+            int choice = userInput();
+            switch (choice) {
+                case 1:
+                    addShape();
+                    break;
+                case 2:
+                    saveImage();
+                    break;
+                case 3:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid option... Please choose a valid option.");
+                    break;
+            }
         }
     }
-     private static void pizza(Turtle turtle) {
-        turtle.setDelay(0.0001);
-        turtle.penUp();
-        turtle.goTo(-100, -100);
-        turtle.penDown();
-        turtle.setColor(Color.cyan);
-        for (int i = 0; i < 270; i++) {
-            turtle.forward(1);
-            turtle.turnRight(1);
-        }
-        turtle.turnRight(90);
-        for (int i = 0; i < 90; i++) {
-            turtle.forward(1);
-            turtle.turnRight(1);
-        }
-     }
+    private int inputSize() {
+        int sizeInput;
+        do {
+            System.out.println("""
+                    Canvas Size?
+                    1. Small (200x200)
+                    2. Medium (400x400)
+                    3. Large (800x800)""");
+            sizeInput = scan.nextInt();
+            switch (sizeInput) {
+                case 1:
+                    return 200;
+                case 2:
+                    return 400;
+                case 3:
+                    return 800;
+                default:
+                    System.out.println("Invalid option... Please choose a valid option");
+                    break;
+            }
+        } while (true);
+    }
+
+    private void mainMenu() {
+        System.out.println("""
+                Main Menu:
+                1. Add Shape
+                2. Save Image
+                3. Exit Application""");
+    }
+    private int userInput() {
+        System.out.println("Enter an option: ");
+        return scan.nextInt();
+    }
+    private void addShape() {
+        System.out.println("""
+                Add Shape:
+                1. Square
+                2. Circle
+                3. Triangle
+                4. Hexagon""");
+    }
+    private void saveImage() {
+
+    }
+    public static void main(String[] args) {
+        MainApp application = new MainApp();
+        application.start();
+    }
 }
-//        // calculate the hypotenuse (diagonal)
-//        // a2 + b2 = c2
-//        double widthSquared = Math.pow(width, 2);
-//        double heightSquared = Math.pow(height, 2);
-//        double hypotenuse = Math.sqrt(widthSquared + heightSquared);
-//
-//
-//        turtle.setPenWidth(3);
-//        turtle.setColor(Color.GREEN);
-//
-//        turtle.turnRight(45);
-//        turtle.forward(hypotenuse);
-//
-//        turtle.penUp();
-//        turtle.goTo(100, 100);
-//        turtle.turnRight(90);
-//
-//        turtle.penDown();
-//        turtle.forward(hypotenuse);
+// The world is your canvas
+//        World world = new World(600, 600);
+//        Turtle turtle = new Turtle(world,-100, -100);
