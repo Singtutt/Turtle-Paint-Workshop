@@ -64,24 +64,10 @@ public class Turtle {
     };
     private static int baseIndex = 0;
 
-    /**
-     * Makes a new turtle in the center of the world.
-     * @param w the world
-     */
     public Turtle(World w) { this(w, 0, 0); }
-    /**
-     * Makes a new turtle at the specified point within the world.
-     * @param x the x coordinate, in pixels; 0 is the center; bigger numbers to left
-     * @param y the y coordinate, in pixels; 0 is the center; bigger numbers down
-     * @param w the world
-     */
+
     public Turtle(double x, double y, World w) { this(w, x, y); }
-    /**
-     * Makes a new turtle at the specified point within the world.
-     * @param w the world
-     * @param x the x coordinate, in pixels; 0 is the center; bigger numbers to left
-     * @param y the y coordinate, in pixels; 0 is the center; bigger numbers down
-     */
+
     public Turtle(World w, double x, double y) {
         this.location = new Point2D.Double(x + w.centerX, y + w.centerY);
         // this.trail = new GeneralPath(); // not used
@@ -97,31 +83,16 @@ public class Turtle {
         w.addTurtle(this);
     }
 
-    /**
-     * Moves the turtle 100 pixels in the direction it is facing.
-     */
     public void forward() { this.forward(100); }
-    /**
-     * Moves the turtle the specified distance in the direction it is facing.
-     * @param d the number of pixels to move
-     */
+
     public void forward(double d) {
         this.cornerGoTo(this.location.x + Math.cos(this.theta)*d, this.location.y + Math.sin(this.theta)*d);
     }
 
-    /**
-     * Moves the turtle 100 pixels in the opposite of the direction it is facing.
-     */
     public void backward() { this.backward(100); }
-    /**
-     * Moves the turtle the specified distance in the opposite direction from the one it is facing.
-     * @param d the number of pixels to move
-     */
+
     public void backward(double d) { this.forward(-d); }
-    /**
-     * Turns the turtle clockwise in place.
-     * @param degrees the number of degrees to turn
-     */
+
     public void turnRight(double degrees) {
         this.theta += Math.PI*degrees/180;
         while (this.theta > Math.PI) this.theta -= Math.PI*2;
@@ -129,31 +100,16 @@ public class Turtle {
         world.turtleMoved();
         this.pause();
     }
-    /**
-     * Turns the turtle counterclockwise in place.
-     * @param degrees the number of degrees to turn
-     */
+
     public void turnLeft(double degrees) { this.turnRight(-degrees); }
-    /**
-     * Stops the turtle from leaving a trail.
-     */
+
     public void penUp() { this.isdown = false; }
-    /**
-     * Causes the turtle to leave a trail.
-     */
+
     public void penDown() { this.isdown = true; }
 
-    /**
-     * Check the pen state
-     * @return true if the pen is down, false otherwise
-     */
     public boolean isPenDown() { return this.isdown; }
 
-    /**
-     * Draws the shell of the turtle.
-     * Should only be called by forms.World class
-     * @param g the graphics object to draw with
-     */
+
     void _how_world_draw_turtles(Graphics2D g) {
 
         // // Other way to draw trails; can't change color part-way through though
@@ -280,22 +236,10 @@ public class Turtle {
 
     }
 
-    /**
-     * Place a picture on the screen where the turtle currently is;
-     * make it 100 pixels wide.
-     * @param filename the file name or URL of the image to be drawn
-     * @return true if the image was found, false otherwise
-     */
     public boolean drop(String filename) {
         return this.drop(filename, 100);
     }
 
-    /**
-     * Place a picture on the screen where the turtle currently is.
-     * @param filename the file name or URL of the image to be drawn
-     * @param size how big the image should be in pixels
-     * @return true if the image was found, false otherwise
-     */
     public boolean drop(String filename, double size) {
         try {
             BufferedImage pic;
@@ -324,19 +268,10 @@ public class Turtle {
         }
     }
 
-
-    /**
-     * Returns the current Color of the forms.Turtle.
-     * @return The current Color of the pen.
-     */
     public Color getColor() {
         return color;
     }
 
-    /**
-     * Changes the current Color of the forms.Turtle.
-     * @param color The new Color to use in drawing
-     */
     public void setColor(Color color) {
         this.color = color;
         world.turtleMoved();
@@ -345,18 +280,10 @@ public class Turtle {
 
     private double penWidth;
 
-    /**
-     * Returns the current width of the turtle's pen.
-     * @return The new pen width, in pixels.
-     */
     public double getPenWidth() {
         return penWidth;
     }
 
-    /**
-     * Sets the width of the pen.
-     * @param width The new pen width, in pixels.
-     */
     public void setPenWidth(double width) {
         if (width <= 0) throw new IllegalArgumentException("Width must be positive");
         this.penWidth = width;
@@ -372,54 +299,29 @@ public class Turtle {
         this.pause();
     }
 
-    /**
-     * Find out what direction the forms.Turtle is facing
-     * @return angle in degrees; 0 is right, 90 is up, etc
-     */
     public double getHeading() {
         return theta*180/Math.PI;
     }
 
-    /**
-     * Set the direction the forms.Turtle is facing
-     * @param angle in degrees; 0 is right, 90 is up, etc
-     */
     public void setHeading(double angle) {
         this.theta = angle*Math.PI/180;
         world.turtleMoved();
         this.pause();
     }
 
-    /**
-     * Find out where the turtle is located
-     * @return The location of the turtle. (0,0) is the center of the screen, +x is rightward, +y is downward.
-     */
     public Point2D getLocation() {
         // fix in following line suggested Anna Cuddeback 2018-11-28
         return new Point2D.Double(this.location.x - world.centerX, (-this.location.y + world.centerY));
     }
 
-
-    /**
-     * Move the turtle to a particular location. It might leave a trail depending on if the pen is down or not.
-     * @param where The new location for the turtle. (0,0) is the top left of the screen, +x is rightward, +y is downward.
-     */
     protected void cornerGoTo(Point2D where) {
         this.cornerGoTo(where.getX(), where.getY());
     }
-    /**
-     * Move the turtle to a particular location. It might leave a trail depending on if the pen is down or not.
-     * @param where The new location for the turtle. (0,0) is the center of the screen, +x is rightward, +y is downward.
-     */
+
     public void goTo(Point2D where) {
         this.cornerGoTo(where.getX() + world.centerX, (-where.getY() + world.centerY));
     }
 
-    /**
-     * Move the turtle to a particular location. It might leave a trail depending on if the pen is down or not.
-     * @param x The new x location for the turtle. 0 is the center of the screen, bigger numbers to the right
-     * @param y The new y location for the turtle. 0 is the center of the screen, bigger numbers lower down
-     */
     protected void cornerGoTo(double x, double y) {
         double ox = this.location.x;
         double oy = this.location.y;
@@ -439,26 +341,15 @@ public class Turtle {
         this.cornerGoTo(x + world.centerX, (-y + world.centerY));
     }
 
-
-    /**
-     * Seconds to pause between each turtle movement
-     * @return the seconds currently paused
-     */
     public double getDelay() {
         return pause * 0.001;
     }
-    /**
-     * Seconds to pause between each turtle movement
-     * @param seconds The seconds to pause
-     */
+
     public void setDelay(double seconds) {
         this.pause = (int)(seconds*1000);
     }
 
-
     private void pause() {
         try { Thread.sleep(this.pause); } catch (InterruptedException e) { }
     }
-
-
 }

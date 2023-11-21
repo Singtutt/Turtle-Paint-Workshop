@@ -1,24 +1,37 @@
 package com.pluralsight;
+import com.pluralsight.forms.Turtle;
+import com.pluralsight.forms.World;
 
 import java.awt.*;
 
 public abstract class Shape {
-    protected Point location;
+    protected double x;
+    protected double y;
     protected Color color;
-    protected int border;
+    protected double borderWidth;
 
-    public Shape(Point location, Color color, int border) {
-        this.location = location;
+
+    public Shape(double x, double y, Color color, double borderWidth) {
         this.color = color;
-        this.border = border;
+        this.borderWidth = borderWidth;
+        this.x = x;
+        this.y = y;
     }
 
-    public Point getLocation() {
-        return location;
+    public double getX() {
+        return x;
     }
 
-    public void setLocation(Point location) {
-        this.location = location;
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public Color getColor() {
@@ -29,15 +42,13 @@ public abstract class Shape {
         this.color = color;
     }
 
-    public int getBorder() {
-        return border;
+    public double getBorderWidth() {
+        return borderWidth;
     }
 
-    public void setBorder(int border) {
-        this.border = border;
+    public void setBorderWidth(double borderWidth) {
+        this.borderWidth = borderWidth;
     }
 
-
-    public abstract void paint();
-
+    public abstract void paint(World world);
 }

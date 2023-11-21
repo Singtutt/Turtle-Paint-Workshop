@@ -58,10 +58,6 @@ public class World extends JFrame {
     public final int centerX;
     public final int centerY;
 
-
-    /**
-     * Creates a new forms.World for Turtles to play in.
-     */
     public World() {
         this(600, 600);
     }
@@ -111,38 +107,25 @@ public class World extends JFrame {
         this.turtles = new ArrayList<Turtle>();
     }
 
-    /**
-     * Erases all existing paths
-     */
     public void erase() {
         this.gg.clearRect(0, 0, this.ground.getWidth(), this.ground.getHeight());
     }
-    /**
-     * Erases all existing paths
-     */
+
     private void clearOverlay() {
         this.og.clearRect(0, 0, this.overlay.getWidth(), this.overlay.getHeight());
     }
 
-
-
-    /**
-     * Should only called by the forms.Turtle class constructor
-     */
     void addTurtle(Turtle t) {
         this.turtles.add(t);
         this.turtleMoved();
     }
-    /**
-     * Should only called by forms.Turtle class methods
-     */
+
     void drawLine(Point2D p1, Point2D p2, double width, Color color) {
         // draw the line
         this.gg.setColor(color);
         this.gg.setStroke(new BasicStroke((float)width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         Line2D.Double line = new Line2D.Double(p1, p2);
         this.gg.draw(line);
-
         // show the drawn lines
         this.blit();
     }
@@ -154,15 +137,10 @@ public class World extends JFrame {
         this.repaint();
     }
 
-    /**
-     * Should only called by forms.Turtle class methods
-     */
     void drawLine(Point2D p1, double nx, double ny, double width, Color color) {
         this.drawLine(p1,  new Point2D.Double(nx,ny), width, color);
     }
-    /**
-     * Should only called by forms.Turtle class methods
-     */
+
     void turtleMoved() {
         // show the drawn lines
         this.clearOverlay();
@@ -174,12 +152,6 @@ public class World extends JFrame {
         this.blit();
     }
 
-    /**
-     * Saves the current image to the specified file
-     *
-     * @param filename The name of the file to write
-     * @throws IllegalArgumentException if any parameter is null or if the filename is not an image filename
-     */
     public void saveAs(String filename) {
         try {
             int dot = filename.lastIndexOf('.');
@@ -194,14 +166,8 @@ public class World extends JFrame {
         }
     }
 
-    /**
-     * To be used by forms.Turtle class only
-     * @param img the Image to draw
-     * @param placement the Affine Transform to use in drawing it
-     */
     void drawImage(Image img, AffineTransform placement) {
         this.gg.drawImage(img, placement, this);
         this.blit();
     }
-
 }
